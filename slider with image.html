@@ -43,28 +43,28 @@
 </head>
 <body>
 
-<h1>Multiples of Hashrate required to do a 51% attack on the Decred blockchain</h1>
+<h1>Multiples of netowrk hashrate required to do a 51% attack on the Decred blockchain</h1>
 <h2>based on the percentage of live tickets held by an attacker</h2>
 <p>Drag the slider to change the percentage of the live ticket pool.</p>
 
 <div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="slider">
-  <p>Percentage of tickets: <span id="hash"></span></p>
-  <p>Multiples of hashpower required: <span id="stake"></span></p>
+  <input type="range" min="1" max="99" value="50" class="slider" id="slider">
+  <p>Percentage of tickets: <span id="tickets"></span></p>
+  <p>Multiples of network hashrate required: <span id="hash"></span></p>
 </div>
 
 <script>
 var slider = document.getElementById("slider");
-var output = document.getElementById("hash");
-var output2 = document.getElementById("stake");
+var tickets = document.getElementById("tickets");
+var hashrate = document.getElementById("hash");
 
 
-output.innerHTML = slider.value;
-output2.innerHTML = 1;
+tickets.innerHTML = slider.value;
+hashrate.innerHTML = 1;
 
 slider.oninput = function() {
-  output.innerHTML = this.value;
-  output2.innerHTML = (6*((1-this.value/100)*(1-this.value/100)*(1-this.value/100)*(1-this.value/100)*(1-this.value/100))
+  tickets.innerHTML = this.value;
+  hashrate.innerHTML = (6*((1-this.value/100)*(1-this.value/100)*(1-this.value/100)*(1-this.value/100)*(1-this.value/100))
                      -15*((1-this.value/100)*(1-this.value/100)*(1-this.value/100)*(1-this.value/100)) +10*((1-this.value/100)*(1-this.value/100)*(1-this.value/100))) 
                      / (6*((this.value/100)*(this.value/100)*(this.value/100)*(this.value/100)*(this.value/100)) 
                      -15*((this.value/100)*(this.value/100)*(this.value/100)*(this.value/100)) +10*((this.value/100)*(this.value/100)*(this.value/100)))
