@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .slidecontainer {
-  width: 50%;
+  width: 75%;
 }
 
 .slider {
@@ -48,28 +48,33 @@
 <p>Drag the slider to change the percentage of the live ticket pool.</p>
 
 <div class="slidecontainer">
-  <input type="range" min="1" max="99" value="50" class="slider" id="slider">
-  <p>Percentage of tickets: <span id="tickets"></span></p>
-  <p>Multiples of network hashrate required: <span id="hash"></span></p>
+  <input type="range" min=".01" max=".99" step="0.01" value=".50" class="slider" id="slider">
+  <p>Multiples of tickets: <span id="tickets"></span></p>
+  <p>Multiples of network hashrate required (Internal attack): <span id="internalhash"></span></p>
 </div>
 
 <script>
 var slider = document.getElementById("slider");
 var tickets = document.getElementById("tickets");
-var hashrate = document.getElementById("hash");
+var hashrateinternal = document.getElementById("internalhash");
+
+
 
 
 tickets.innerHTML = slider.value;
-hashrate.innerHTML = 1;
+hashrateinternal.innerHTML = .5;
 
 slider.oninput = function() {
   tickets.innerHTML = this.value;
-  hashrate.innerHTML = (6*((1-this.value/100)*(1-this.value/100)*(1-this.value/100)*(1-this.value/100)*(1-this.value/100))
-                     -15*((1-this.value/100)*(1-this.value/100)*(1-this.value/100)*(1-this.value/100)) +10*((1-this.value/100)*(1-this.value/100)*(1-this.value/100))) 
-                     / (6*((this.value/100)*(this.value/100)*(this.value/100)*(this.value/100)*(this.value/100)) 
-                     -15*((this.value/100)*(this.value/100)*(this.value/100)*(this.value/100)) +10*((this.value/100)*(this.value/100)*(this.value/100)))
-                        
+ //equation to determine hashpower requirement based on percentage of live stake (6 (1-f_s)⁵ -15(1-f_s)⁴ + 10(1-f_s)³) / (6f_s⁵-15f_s⁴ + 10f_s³)
+  hashraterequired = (6*((1-this.value)*(1-this.value)*(1-this.value)*(1-this.value)*(1-this.value))-15*((1-this.value)*(1-this.value)*(1-this.value)*(1-this.value)) +10*((1-this.value)*(1-this.value)*(1-this.value))) 
+  / (6*((this.value)*(this.value)*(this.value)*(this.value)*(this.value)) -15*((this.value)*(this.value)*(this.value)*(this.value)) +10*((this.value)*(this.value)*(this.value)));
+  hashrateinternal.innerHTML = hashraterequired/2;
+
 }
+
+
+ ;
 </script>
 </body>
 </html>
