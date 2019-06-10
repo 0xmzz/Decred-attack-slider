@@ -60,7 +60,7 @@ var hashrateinternal = document.getElementById("internalhash");
 
 
 tickets.innerHTML = slider.value;
-hashrateinternal.innerHTML = .5;
+hashrateinternal.innerHTML = 1;
 
 slider.oninput = function() {
   tickets.innerHTML = this.value;
